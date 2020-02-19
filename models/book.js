@@ -1,6 +1,5 @@
 const db = require("../db");
 
-
 /** Collection of related methods for books. */
 
 class Book {
@@ -20,7 +19,7 @@ class Book {
                 publisher,
                 title,
                 year
-            FROM books 
+            FROM books
             WHERE isbn = $1`, [isbn]);
 
     if (bookRes.rows.length === 0) {
@@ -47,7 +46,7 @@ class Book {
                 publisher,
                 title,
                 year
-            FROM books 
+            FROM books
             ORDER BY title`);
 
     return booksRes.rows;
@@ -71,8 +70,8 @@ class Book {
             pages,
             publisher,
             title,
-            year) 
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8) 
+            year)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
          RETURNING isbn,
                    amazon_url,
                    author,
@@ -106,7 +105,7 @@ class Book {
 
   static async update(isbn, data) {
     const result = await db.query(
-      `UPDATE books SET 
+      `UPDATE books SET
             amazon_url=($1),
             author=($2),
             language=($3),
@@ -146,8 +145,8 @@ class Book {
 
   static async remove(isbn) {
     const result = await db.query(
-      `DELETE FROM books 
-         WHERE isbn = $1 
+      `DELETE FROM books
+         WHERE isbn = $1
          RETURNING isbn`,
         [isbn]);
 
